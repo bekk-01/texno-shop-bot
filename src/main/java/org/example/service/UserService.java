@@ -17,10 +17,8 @@ public class UserService extends BaseService<User,UserRepository> {
         return userService;
     }
     public User findByChatId(Long chatId){
-        Optional<User> userOptional= repository.findByChatId(chatId);
-        return userOptional.orElseThrow(() -> {
-            return new DataNotFoundException("user with this chat {} is not found");
-        });
+        return repository.findByChatId(chatId).orElseThrow(() -> new DataNotFoundException(""));
+
     }
     public void update(User update){
         ArrayList<User> all = repository.getAll();

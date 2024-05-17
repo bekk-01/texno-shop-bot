@@ -2,8 +2,8 @@ package org.example.model;
 
 import lombok.*;
 import org.example.enumerators.UserState;
+import org.telegram.telegrambots.meta.api.objects.Location;
 
-import javax.xml.stream.Location;
 
 @Getter
 @Setter
