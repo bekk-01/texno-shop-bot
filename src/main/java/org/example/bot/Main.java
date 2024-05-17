@@ -1,6 +1,4 @@
-package org.example;
-
-import org.example.bot.MyBot;
+package org.example.bot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -10,6 +8,7 @@ public class Main {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(new MyBot());
+            System.out.println("STARTED_BOT");
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
