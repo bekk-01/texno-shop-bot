@@ -6,9 +6,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Location;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.example.bot.MyBot.buttons;
@@ -38,7 +40,7 @@ public class RegistrationHandler {
             currentUser.setLocation(location);
             currentUser.setUserState(UserState.REGISTERED);
             userService.update(currentUser);
-            SendMessage sendMessage = new SendMessage(chatId.toString(),"Thank you , choose one");
+            SendMessage sendMessage = new SendMessage(chatId.toString(),"Thank you");
             sendMessage.setReplyMarkup(buttons.homePage());
             return sendMessage;
         }

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.enumerators.UserState;
 import org.example.exception.DataNotFoundException;
 import org.example.model.User;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -43,8 +44,31 @@ public class CommandHandler extends MyBot {
                     throw new RuntimeException(e);
                 }
             }
+            case MAIN_MENU,REGISTERED -> handleShopping(message);
+
         }
     }
+    public void handleShopping(Message message){
+        Long chatId = message.getChatId();
+        String text = message.getText();
+        if(Objects.equals(text,"\uD83D\uDED2Shopping") || (Objects.equals(text,"Shopping")) || (Objects.equals(text,"shopping"))){
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setText("\t\t\tChoose one");
+            sendMessage.setReplyMarkup(buttons.shoppingPage());
+            SendMessage message1 = new SendMessage();
+            message1.setChatId(chatId);
+            message1.setText("");
+            message1.setReplyMarkup(buttons.back());
+            try {
+                execute(sendMessage);
+                execute(message1);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     public SendMessage handleStart(Long chatId, org.telegram.telegrambots.meta.api.objects.User from) {
         User user = null;

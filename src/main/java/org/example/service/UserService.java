@@ -17,7 +17,10 @@ public class UserService extends BaseService<User,UserRepository> {
         return userService;
     }
     public User findByChatId(Long chatId){
-        return repository.findByChatId(chatId).orElseThrow(() -> new DataNotFoundException(""));
+        Optional<User> byChatId = repository.findByChatId(chatId);
+        return byChatId.orElseThrow(() -> {
+            return new DataNotFoundException("user with this chat {} is not found");
+        });
 
     }
     public void update(User update){

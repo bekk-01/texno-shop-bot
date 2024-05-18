@@ -4,5 +4,6 @@ public enum UserState {
     SHARE_CONTACT,
     SHARE_LOCATION,
     REGISTERED,
-    MAIN_MENU;
+    MAIN_MENU,
+    COMPUTER;
 }

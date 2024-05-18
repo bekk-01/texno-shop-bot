@@ -9,7 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Phone extends ProductTechno{
+public class Phone extends BaseModel{
+    private String model;
+    private String modelBy;
+    private String price;
     private String battery;
-    private Integer displayHrz;
+    private String displayHrz;
+    private int count;
 }
