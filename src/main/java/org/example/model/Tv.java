@@ -9,6 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tv extends ProductTechno{
+public class Tv extends BaseModel{
+    private String model;
+    private String modelBy;
+    private String price;
     private String dmu;
+    private int count;
 }

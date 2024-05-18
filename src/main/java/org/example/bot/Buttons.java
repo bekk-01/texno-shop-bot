@@ -1,8 +1,7 @@
 package org.example.bot;
 
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -40,8 +39,15 @@ public class Buttons {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboards);
         replyKeyboardMarkup.setResizeKeyboard(true);
         return replyKeyboardMarkup;
-
-
+    }
+    public ReplyKeyboardMarkup back(){
+        List<KeyboardRow> keyboards = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add("⬅\uFE0FBack");
+        keyboards.add(row);
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboards);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        return replyKeyboardMarkup;
     }
     public InlineKeyboardMarkup shoppingPage(){
         List<List<InlineKeyboardButton>> rows = new ArrayList<>();
@@ -67,6 +73,9 @@ public class Buttons {
         button.setCallbackData("Buckets");
         row.add(button);
         rows.add(row);
+
+
+
         return new InlineKeyboardMarkup(rows);
     }
 }

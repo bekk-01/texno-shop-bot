@@ -4,6 +4,7 @@ import org.example.model.BaseModel;
 import org.example.repository.BaseRepository;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public abstract class BaseService<T extends BaseModel,R extends BaseRepository<T>> {
     protected R repository;
@@ -16,5 +17,8 @@ public abstract class BaseService<T extends BaseModel,R extends BaseRepository<T
     }
     public T add(T t){
         return repository.save(t);
+    }
+    public void delete(UUID id){
+        repository.delete(id);
     }
 }

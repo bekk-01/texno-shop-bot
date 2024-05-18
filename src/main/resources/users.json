@@ -1,1 +1,14 @@
-[]
+[ {
+  "id" : "722d6634-0e50-4481-9f21-4d4620c18df7",
+  "localDateTime" : "17/05/2024 21:06:54",
+  "firstName" : "Olimoff_",
+  "username" : "oybek_olimov1",
+  "phoneNumber" : "+998992962424",
+  "chatId" : 6333479586,
+  "location" : {
+    "longitude" : 69.228299,
+    "latitude" : 41.326632
+  },
+  "userState" : "REGISTERED",
+  "active" : true
+} ]
