@@ -21,4 +21,10 @@ public abstract class BaseService<T extends BaseModel,R extends BaseRepository<T
     public void delete(UUID id){
         repository.delete(id);
     }
+    public ArrayList<T> readFromFile(){
+        return repository.readFromFile();
+    }
+    public void writeFile(ArrayList<T> data){
+        repository.writeFile(data);
+    }
 }

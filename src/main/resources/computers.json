@@ -1,1 +1,12 @@
-[]
+[ {
+  "id" : "2bd988a7-56e2-47c0-a391-cc69a1a4fe19",
+  "localDateTime" : "18/05/2024 15:56:07",
+  "model" : "ASUS ZenBook pro",
+  "modelBy" : "ASUS",
+  "price" : "1000 $",
+  "ram" : "8",
+  "cup" : "512",
+  "count" : 3,
+  "userId" : null,
+  "active" : true
+}]
