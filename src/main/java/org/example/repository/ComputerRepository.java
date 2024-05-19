@@ -7,4 +7,5 @@ public class ComputerRepository extends BaseRepository<Computer> {
         super.path = "src/main/resources/computers.json";
         super.type = Computer.class;
     }
+
 }

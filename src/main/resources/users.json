@@ -1,14 +1,14 @@
 [ {
-  "id" : "722d6634-0e50-4481-9f21-4d4620c18df7",
-  "localDateTime" : "17/05/2024 21:06:54",
+  "id" : "820452b3-4cf9-44da-9a9a-e8a88f9dd0dd",
+  "localDateTime" : "19/05/2024 17:17:06",
   "firstName" : "Olimoff_",
   "username" : "oybek_olimov1",
   "phoneNumber" : "+998992962424",
   "chatId" : 6333479586,
   "location" : {
-    "longitude" : 69.228299,
-    "latitude" : 41.326632
+    "longitude" : 69.226481,
+    "latitude" : 41.326842
   },
-  "userState" : "REGISTERED",
+  "userState" : "MAIN_MENU",
   "active" : true
 } ]

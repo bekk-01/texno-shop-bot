@@ -4,14 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.enumerators.UserState;
 import org.example.exception.DataNotFoundException;
 import org.example.model.User;
-import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.MaybeInaccessibleMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -28,6 +29,7 @@ public class CommandHandler extends MyBot {
                 throw new RuntimeException(e);
             }
         }
+        handleShopping(message);
         User currentUser = userService.findByChatId(chatId);
         switch (currentUser.getUserState()){
             case SHARE_CONTACT -> {
@@ -44,25 +46,54 @@ public class CommandHandler extends MyBot {
                     throw new RuntimeException(e);
                 }
             }
-            case MAIN_MENU,REGISTERED -> handleShopping(message);
 
+
+        }
+    }
+    public void handleCallBackQuery(CallbackQuery callbackQuery){
+        String text = callbackQuery.getData();
+        Long chatId = callbackQuery.getMessage().getChatId();
+        if(Objects.equals(text,"Computer") || text.equalsIgnoreCase("computer")){
+                product.handleComputer(callbackQuery);
+                SendMessage sendMessage = new SendMessage(chatId.toString(),"Would you like to buy↘️↘️");
+                sendMessage.setReplyMarkup(buttons.bucketsAdd());
+            try {
+                execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        if(Objects.equals(text,"Phone") || text.equalsIgnoreCase("phone")){
+            product.handlePhone(callbackQuery);
+            SendMessage sendMessage = new SendMessage(chatId.toString(),"Would you like to buy↘️↘️");
+            sendMessage.setReplyMarkup(buttons.bucketsAdd());
+            try {
+                execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if(Objects.equals(text,"Tv") || text.equalsIgnoreCase("tv")){
+            product.handleTv(callbackQuery);
+            SendMessage sendMessage = new SendMessage(chatId.toString(),"Would you like to buy↘️↘️");
+            sendMessage.setReplyMarkup(buttons.bucketsAdd());
+            try {
+                execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public void handleShopping(Message message){
         Long chatId = message.getChatId();
         String text = message.getText();
         if(Objects.equals(text,"\uD83D\uDED2Shopping") || (Objects.equals(text,"Shopping")) || (Objects.equals(text,"shopping"))){
-            SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(chatId);
-            sendMessage.setText("\t\t\tChoose one");
+            SendMessage sendMessage = new SendMessage(chatId.toString(),"Choose one ↘️↘️");
             sendMessage.setReplyMarkup(buttons.shoppingPage());
-            SendMessage message1 = new SendMessage();
-            message1.setChatId(chatId);
-            message1.setText("");
-            message1.setReplyMarkup(buttons.back());
             try {
                 execute(sendMessage);
-                execute(message1);
+                return;
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }
@@ -77,6 +108,7 @@ public class CommandHandler extends MyBot {
             user.setUserState(UserState.MAIN_MENU);
             userService.update(user);
             SendMessage sendMessage = new SendMessage(chatId.toString(), String.format("Welcome back %s choose one!!!", user.getFirstName()));
+            sendMessage.setReplyMarkup(buttons.homePage());
             return sendMessage;
         }catch (DataNotFoundException e){
             log.info(e.getMessage(),chatId);

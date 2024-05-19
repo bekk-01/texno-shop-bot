@@ -1,16 +1,20 @@
 package org.example.bot;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buttons {
+public class Buttons extends MyBot{
     public ReplyKeyboardMarkup requestContact() {
         KeyboardButton button = new KeyboardButton("\uD83D\uDCDEShare your number");
         button.setRequestContact(true);//o'zini raqamini yuboradi
@@ -71,6 +75,21 @@ public class Buttons {
 
         button = new InlineKeyboardButton("\uD83D\uDDD1Buckets");
         button.setCallbackData("Buckets");
+        row.add(button);
+
+        button = new InlineKeyboardButton("\uD83D\uDCC3History");
+        button.setCallbackData("History");
+        row.add(button);
+
+        rows.add(row);
+
+        return new InlineKeyboardMarkup(rows);
+    }
+    public InlineKeyboardMarkup bucketsAdd(){
+        List<List<InlineKeyboardButton>> rows = new ArrayList<>();
+        List<InlineKeyboardButton> row = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton("Create Buckets");
+        button.setCallbackData("Create Buckets");
         row.add(button);
         rows.add(row);
 
