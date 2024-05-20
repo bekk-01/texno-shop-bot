@@ -29,34 +29,38 @@ public class CommandHandler extends MyBot {
                 throw new RuntimeException(e);
             }
         }
-        handleShopping(message);
         User currentUser = userService.findByChatId(chatId);
-        switch (currentUser.getUserState()){
+        if(text!=null){
+            handleShoppingOrSell(message);
+        }
+        switch (currentUser.getUserState()) {
             case SHARE_CONTACT -> {
                 try {
-                    execute(registrationHandler.handleContact(message,currentUser));
+                    execute(registrationHandler.handleContact(message, currentUser));
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
             }
             case SHARE_LOCATION -> {
                 try {
-                    execute(registrationHandler.handleLocation(message,currentUser));
+                    execute(registrationHandler.handleLocation(message, currentUser));
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
             }
+            case SELL -> createProduct.createComputerFields(message);
 
 
         }
     }
-    public void handleCallBackQuery(CallbackQuery callbackQuery){
+
+    public void handleCallBackQuery(CallbackQuery callbackQuery) {
         String text = callbackQuery.getData();
         Long chatId = callbackQuery.getMessage().getChatId();
-        if(Objects.equals(text,"Computer") || text.equalsIgnoreCase("computer")){
-                product.handleComputer(callbackQuery);
-                SendMessage sendMessage = new SendMessage(chatId.toString(),"Would you like to buy↘️↘️");
-                sendMessage.setReplyMarkup(buttons.bucketsAdd());
+        User user = userService.findByChatId(chatId);
+        if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Computer") || text.equalsIgnoreCase("computer"))) {
+            SendMessage sendMessage = new SendMessage(chatId.toString(), "Would you like to buy↘️↘️");
+            sendMessage.setReplyMarkup(buttons.bucketsAdd());
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
@@ -64,9 +68,9 @@ public class CommandHandler extends MyBot {
             }
 
         }
-        if(Objects.equals(text,"Phone") || text.equalsIgnoreCase("phone")){
-            product.handlePhone(callbackQuery);
-            SendMessage sendMessage = new SendMessage(chatId.toString(),"Would you like to buy↘️↘️");
+        if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Phone") || text.equalsIgnoreCase("phone"))) {
+
+            SendMessage sendMessage = new SendMessage(chatId.toString(), "Would you like to buy↘️↘️");
             sendMessage.setReplyMarkup(buttons.bucketsAdd());
             try {
                 execute(sendMessage);
@@ -74,22 +78,29 @@ public class CommandHandler extends MyBot {
                 throw new RuntimeException(e);
             }
         }
-        if(Objects.equals(text,"Tv") || text.equalsIgnoreCase("tv")){
-            product.handleTv(callbackQuery);
-            SendMessage sendMessage = new SendMessage(chatId.toString(),"Would you like to buy↘️↘️");
+        if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Tv") || text.equalsIgnoreCase("tv"))) {
+
+            SendMessage sendMessage = new SendMessage(chatId.toString(), "Would you like to buy↘️↘️");
             sendMessage.setReplyMarkup(buttons.bucketsAdd());
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }
+        }
+        if(user.getUserState()==UserState.SELL && Objects.equals(text, "Computer")){
+            createProduct.createComputer(callbackQuery);
         }
     }
-    public void handleShopping(Message message){
+
+    public void handleShoppingOrSell(Message message) {
         Long chatId = message.getChatId();
         String text = message.getText();
-        if(Objects.equals(text,"\uD83D\uDED2Shopping") || (Objects.equals(text,"Shopping")) || (Objects.equals(text,"shopping"))){
-            SendMessage sendMessage = new SendMessage(chatId.toString(),"Choose one ↘️↘️");
+        User user = userService.findByChatId(chatId);
+        if (Objects.equals(text, "\uD83D\uDED2Shopping") || (Objects.equals(text, "Shopping")) || (Objects.equals(text, "shopping"))) {
+            SendMessage sendMessage = new SendMessage(chatId.toString(), "Choose one ↘️↘️");
+            user.setUserState(UserState.SHOPPING);
+            userService.update(user);
             sendMessage.setReplyMarkup(buttons.shoppingPage());
             try {
                 execute(sendMessage);
@@ -98,6 +109,19 @@ public class CommandHandler extends MyBot {
                 throw new RuntimeException(e);
             }
         }
+        if (Objects.equals(text, "\uD83D\uDED2Sell") || text.equalsIgnoreCase("sell")) {
+            SendMessage sendMessage = new SendMessage(chatId.toString(), "What do you sell ↘️↘️");
+            user.setUserState(UserState.SELL);
+            userService.update(user);
+            sendMessage.setReplyMarkup(buttons.sellPage());
+            try {
+                execute(sendMessage);
+                return;
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 
 
@@ -107,11 +131,11 @@ public class CommandHandler extends MyBot {
             user = userService.findByChatId(chatId);
             user.setUserState(UserState.MAIN_MENU);
             userService.update(user);
-            SendMessage sendMessage = new SendMessage(chatId.toString(), String.format("Welcome back %s choose one!!!", user.getFirstName()));
+            SendMessage sendMessage = new SendMessage(chatId.toString(), String.format("Welcome back %s ", user.getFirstName()));
             sendMessage.setReplyMarkup(buttons.homePage());
             return sendMessage;
-        }catch (DataNotFoundException e){
-            log.info(e.getMessage(),chatId);
+        } catch (DataNotFoundException e) {
+            log.info(e.getMessage(), chatId);
             User newUser = User.builder()
                     .firstName(from.getFirstName())
                     .username(from.getUserName())

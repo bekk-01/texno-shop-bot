@@ -1,14 +1,16 @@
 [ {
-  "id" : "820452b3-4cf9-44da-9a9a-e8a88f9dd0dd",
-  "localDateTime" : "19/05/2024 17:17:06",
+  "id" : "e2e1d008-7782-4f36-8abe-43f198f78251",
+  "localDateTime" : "20/05/2024 16:56:33",
   "firstName" : "Olimoff_",
   "username" : "oybek_olimov1",
   "phoneNumber" : "+998992962424",
   "chatId" : 6333479586,
   "location" : {
-    "longitude" : 69.226481,
-    "latitude" : 41.326842
+    "longitude" : 69.228691,
+    "latitude" : 41.326623
   },
-  "userState" : "MAIN_MENU",
+  "userState" : "SELL",
+  "state" : "COUNT",
+  "startedProduct" : "c8c5871d-4e90-4350-9562-1325a0a60a2a",
   "active" : true
 } ]

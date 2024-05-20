@@ -5,6 +5,7 @@ public enum UserState {
     SHARE_LOCATION,
     REGISTERED,
     MAIN_MENU,
-    COMPUTER,
-    SHOPPING;
+    SELL,
+    SHOPPING,
+    SELL_COMPUTER;
 }

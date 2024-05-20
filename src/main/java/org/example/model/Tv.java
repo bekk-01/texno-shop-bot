@@ -15,4 +15,5 @@ public class Tv extends BaseModel{
     private String price;
     private String dmu;
     private int count;
+    private String fileId;
 }

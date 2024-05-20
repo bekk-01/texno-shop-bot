@@ -16,4 +16,5 @@ public class Phone extends BaseModel{
     private String battery;
     private String displayHrz;
     private int count;
+    private String fileId;
 }

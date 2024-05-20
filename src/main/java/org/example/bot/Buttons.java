@@ -97,4 +97,24 @@ public class Buttons extends MyBot{
 
         return new InlineKeyboardMarkup(rows);
     }
+    public InlineKeyboardMarkup sellPage(){
+        List<List<InlineKeyboardButton>> rows = new ArrayList<>();
+        List<InlineKeyboardButton> row = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton("\uD83D\uDCBBComputer");
+        button.setCallbackData("Computer");
+        row.add(button);
+
+        button = new InlineKeyboardButton("\uD83D\uDCF1Phone");
+        button.setCallbackData("Phone");
+        row.add(button);
+
+        button = new InlineKeyboardButton("\uD83D\uDCFATV");
+        button.setCallbackData("Tv");
+        row.add(button);
+
+        rows.add(row);
+
+        return new InlineKeyboardMarkup(rows);
+
+    }
 }

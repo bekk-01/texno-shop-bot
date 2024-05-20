@@ -1,6 +1,6 @@
 package org.example.bot;
 
-import org.example.bot.product.ProductMenu;
+import org.example.bot.product.CreateProduct;
 import org.example.service.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,11 +10,12 @@ public class MyBot extends TelegramLongPollingBot {
     public static Buttons buttons = new Buttons();
     public static CommandHandler commandHandler = new CommandHandler();
     public static RegistrationHandler registrationHandler = new RegistrationHandler();
-    public static ProductMenu product = new ProductMenu();
     public static ComputerService computerService = ComputerService.getInstance();
     public static PhoneService phoneService = PhoneService.getInstance();
     public static TvService tvService = TvService.getInstance();
-    public static ProductService productService = ProductService.getInstance();
+    public static BucketService productService = BucketService.getInstance();
+    public static CreateProduct createProduct = new CreateProduct();
+
 
     public MyBot() {
         super("6777158162:AAGuGf4YCKG7qyeuYYt9lxKHdhvGE7FOZ7w");
