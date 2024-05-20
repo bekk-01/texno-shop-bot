@@ -1,6 +1,7 @@
 package org.example.model;
 
 import lombok.*;
+import org.example.enumerators.ComputerState;
 
 import java.util.UUID;
 
@@ -15,14 +16,7 @@ public class Computer extends BaseModel {
     private String ram;
     private String cup;
     private int count;
-    private UUID userId;
+    private String fileId;
 
-    public Computer(String model, String modelBy, String price, String ram, String cup, int count) {
-        this.model = model;
-        this.modelBy = modelBy;
-        this.price = price;
-        this.ram = ram;
-        this.cup = cup;
-        this.count = count;
-    }
+
 }

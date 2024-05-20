@@ -1,8 +1,11 @@
 package org.example.model;
 
 import lombok.*;
+import org.example.enumerators.ComputerState;
 import org.example.enumerators.UserState;
 import org.telegram.telegrambots.meta.api.objects.Location;
+
+import java.util.UUID;
 
 
 @Getter
@@ -18,4 +21,6 @@ public class User extends BaseModel{
     private Long chatId;
     private Location location;
     private UserState userState;
+    private ComputerState state;
+    private UUID startedProduct;
 }
