@@ -1,5 +1,6 @@
 package org.example.bot;
 
+import org.example.bot.downloading.Downloading;
 import org.example.bot.product.CreateProduct;
 import org.example.service.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -13,8 +14,9 @@ public class MyBot extends TelegramLongPollingBot {
     public static ComputerService computerService = ComputerService.getInstance();
     public static PhoneService phoneService = PhoneService.getInstance();
     public static TvService tvService = TvService.getInstance();
-    public static BucketService productService = BucketService.getInstance();
+    public static BucketService bucketService = BucketService.getInstance();
     public static CreateProduct createProduct = new CreateProduct();
+    public static Downloading downloading = new Downloading();
 
 
     public MyBot() {

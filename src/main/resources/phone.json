@@ -1,1 +1,23 @@
-[]
+[ {
+  "id" : "00f40e3a-e7f7-447d-9b61-11b47bd28720",
+  "localDateTime" : "21/05/2024 10:28:18",
+  "model" : "AyNokia",
+  "modelBy" : "\uD83D\uDED2Sell",
+  "price" : null,
+  "battery" : null,
+  "displayHrz" : null,
+  "count" : null,
+  "fileId" : "AgACAgIAAxkBAAIH2GZMMP5kRG7j8RRC79gy_Lg0QoF8AAL_3jEbPWVhSjE3ffFSMkqsAQADAgADeQADNQQ",
+  "active" : true
+}, {
+  "id" : "56dafa6c-d996-48ac-9c83-aedb5b8bf5e8",
+  "localDateTime" : "21/05/2024 10:31:19",
+  "model" : "yashil",
+  "modelBy" : "nima bu",
+  "price" : "tekin",
+  "battery" : "bunda batarya yoq",
+  "displayHrz" : "144",
+  "count" : "1000",
+  "fileId" : "AgACAgIAAxkBAAIILGZMMbHoxX964Yz880TjlT99wzUjAAJQ3DEbplFhSn6LWZfOIn7cAQADAgADeQADNQQ",
+  "active" : true
+} ]

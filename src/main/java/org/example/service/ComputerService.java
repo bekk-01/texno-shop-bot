@@ -36,4 +36,13 @@ public class ComputerService extends BaseService<Computer, ComputerRepository> {
         }
         repository.writeFile(all);
     }
+    public ArrayList<Computer> searchByTitle(String text){
+        ArrayList<Computer> list = new ArrayList<>();
+        for (Computer computer1 : getAll()) {
+            if(computer1.getModel().contains(text)){
+                list.add(computer1);
+            }
+        }
+        return list;
+    }
 }

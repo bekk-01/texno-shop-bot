@@ -1,16 +1,28 @@
 [ {
-  "id" : "e2e1d008-7782-4f36-8abe-43f198f78251",
-  "localDateTime" : "20/05/2024 16:56:33",
+  "id" : "0c13fad3-b41a-46d5-b44f-bc71ee6a6b6e",
+  "localDateTime" : "21/05/2024 10:33:22",
   "firstName" : "Olimoff_",
   "username" : "oybek_olimov1",
   "phoneNumber" : "+998992962424",
   "chatId" : 6333479586,
   "location" : {
-    "longitude" : 69.228691,
-    "latitude" : 41.326623
+    "longitude" : 69.228377,
+    "latitude" : 41.326606
   },
-  "userState" : "SELL",
-  "state" : "COUNT",
-  "startedProduct" : "c8c5871d-4e90-4350-9562-1325a0a60a2a",
+  "userState" : "SHOPPING",
+  "state" : "FINISH",
+  "startedProduct" : "a5e72f1c-aa38-400e-9b1b-36632d6ea3ea",
+  "active" : true
+}, {
+  "id" : "8f1708b5-96ff-498e-98b3-5bced8527967",
+  "localDateTime" : "21/05/2024 10:43:51",
+  "firstName" : "Bahodir",
+  "username" : "Bakhodir_10",
+  "phoneNumber" : null,
+  "chatId" : 627704226,
+  "location" : null,
+  "userState" : "SHARE_CONTACT",
+  "state" : null,
+  "startedProduct" : null,
   "active" : true
 } ]

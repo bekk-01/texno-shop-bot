@@ -3,16 +3,17 @@ package org.example.bot;
 import lombok.extern.slf4j.Slf4j;
 import org.example.enumerators.UserState;
 import org.example.exception.DataNotFoundException;
+import org.example.model.Computer;
+import org.example.model.Phone;
+import org.example.model.Tv;
 import org.example.model.User;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.MaybeInaccessibleMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -30,13 +31,15 @@ public class CommandHandler extends MyBot {
             }
         }
         User currentUser = userService.findByChatId(chatId);
-        if(text!=null){
+        if(text!=null) {
             handleShoppingOrSell(message);
         }
+
         switch (currentUser.getUserState()) {
             case SHARE_CONTACT -> {
                 try {
                     execute(registrationHandler.handleContact(message, currentUser));
+                    return;
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
@@ -44,11 +47,15 @@ public class CommandHandler extends MyBot {
             case SHARE_LOCATION -> {
                 try {
                     execute(registrationHandler.handleLocation(message, currentUser));
+                    return;
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
             }
-            case SELL -> createProduct.createComputerFields(message);
+            case SELL_COMPUTER -> createProduct.createComputerFields(message);
+            case SELL_PHONE -> createProduct.createPhoneFields(message);
+            case SELL_TV -> createProduct.createTvFields(message);
+            case SEARCHING -> createProduct.search(message);
 
 
         }
@@ -60,36 +67,113 @@ public class CommandHandler extends MyBot {
         User user = userService.findByChatId(chatId);
         if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Computer") || text.equalsIgnoreCase("computer"))) {
             SendMessage sendMessage = new SendMessage(chatId.toString(), "Would you like to buy↘️↘️");
-            sendMessage.setReplyMarkup(buttons.bucketsAdd());
-            try {
-                execute(sendMessage);
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+            ArrayList<Computer> computers = computerService.readFromFile();
+            for (int i = 0; i < computers.size(); i++) {
+                Computer computer = computers.get(i);
+                SendPhoto sendPhoto = new SendPhoto();
+                sendPhoto.setChatId(chatId.toString());
+                sendPhoto.setCaption("Model: " + computer.getModel() + "\n" +
+                        "ModelBy: " + computer.getModelBy() + "\n" +
+                        "Price: " + computer.getPrice() + "\n" +
+                        "Ram: " + computer.getRam() + "\n" +
+                        "Cup: " + computer.getCup() + "\n" +
+                        "Count: " + computer.getCount());
+                sendPhoto.setPhoto(new InputFile(computer.getFileId()));
+                try {
+                    execute(sendPhoto);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+                sendMessage.setReplyMarkup(buttons.bucketsAdd());
+                try {
+                    execute(sendMessage);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         }
         if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Phone") || text.equalsIgnoreCase("phone"))) {
-
             SendMessage sendMessage = new SendMessage(chatId.toString(), "Would you like to buy↘️↘️");
-            sendMessage.setReplyMarkup(buttons.bucketsAdd());
-            try {
-                execute(sendMessage);
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+            ArrayList<Phone> phones = phoneService.readFromFile();
+            for (int i = 0; i < phones.size(); i++) {
+                Phone phone = phones.get(i);
+                SendPhoto sendPhoto = new SendPhoto();
+                sendPhoto.setChatId(chatId.toString());
+                sendPhoto.setCaption("Model: " + phone.getModel() + "\n" +
+                        "ModelBy: " + phone.getModelBy() + "\n" +
+                        "Price: " + phone.getPrice() + "\n" +
+                        "Battery: " + phone.getBattery() + "\n" +
+                        "DisplayHrz: " + phone.getDisplayHrz() + "\n" +
+                        "Count: " + phone.getCount());
+                sendPhoto.setPhoto(new InputFile(phone.getFileId()));
+                try {
+                    execute(sendPhoto);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+                sendMessage.setReplyMarkup(buttons.bucketsAdd());
+                try {
+                    execute(sendMessage);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Tv") || text.equalsIgnoreCase("tv"))) {
-
             SendMessage sendMessage = new SendMessage(chatId.toString(), "Would you like to buy↘️↘️");
-            sendMessage.setReplyMarkup(buttons.bucketsAdd());
+            ArrayList<Tv> tvs = tvService.readFromFile();
+            for (int i = 0; i < tvs.size(); i++) {
+                Tv tv = tvs.get(i);
+                SendPhoto sendPhoto = new SendPhoto();
+                sendPhoto.setChatId(chatId.toString());
+                sendPhoto.setCaption("Model: " + tv.getModel() + "\n" +
+                        "ModelBy: " + tv.getModelBy() + "\n" +
+                        "Price: " + tv.getPrice() + "\n" +
+                        "Dmu: " + tv.getDmu() + "\n" +
+                        "Smart: " + tv.getSmart() + "\n" +
+                        "Count: " + tv.getCount());
+                sendPhoto.setPhoto(new InputFile(tv.getFileId()));
+                try {
+                    execute(sendPhoto);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+                sendMessage.setReplyMarkup(buttons.bucketsAdd());
+                try {
+                    execute(sendMessage);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        if (user.getUserState() == UserState.SHOPPING && (Objects.equals(text, "Search") || text.equalsIgnoreCase("search"))){
+            createProduct.searchCallback(callbackQuery);
+            user.setUserState(UserState.SEARCHING);
+            userService.update(user);
+
+        }
+        if ((user.getUserState() == UserState.SHOPPING || user.getUserState() == UserState.SELL ) && (Objects.equals(text, "Download") || text.equalsIgnoreCase("download"))){
+            SendMessage sendMessage = new SendMessage(chatId.toString(),"Choose one↘️↘️");
+            sendMessage.setReplyMarkup(buttons.downloadButton());
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }
         }
+        if((user.getUserState() == UserState.SHOPPING || user.getUserState() == UserState.SELL )&& (Objects.equals(text,"Excel")
+                || text.equalsIgnoreCase("excel"))){
+            downloading.handleExelFile(chatId);
+        }
         if(user.getUserState()==UserState.SELL && Objects.equals(text, "Computer")){
             createProduct.createComputer(callbackQuery);
+        }
+        if (user.getUserState() == UserState.SELL && Objects.equals(text,"Phone")){
+            createProduct.createPhone(callbackQuery);
+        }
+        if (user.getUserState() == UserState.SELL && Objects.equals(text,"Tv")){
+            createProduct.createTv(callbackQuery);
         }
     }
 
