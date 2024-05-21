@@ -1,34 +1,12 @@
 [ {
-  "id" : "cdf8b7f6-4094-4cf9-83fa-bffd65291ac2",
-  "localDateTime" : "21/05/2024 10:27:22",
-  "model" : "HP G7",
-  "modelBy" : "HP Inc",
-  "price" : "2000",
-  "ram" : "256",
-  "cup" : "16",
-  "count" : "12",
-  "fileId" : "AgACAgIAAxkBAAIHyWZMMMQd7k5FhCOGrpmH3gHFKfDJAAL-3jEbPWVhSgrBjpEpcgpSAQADAgADeQADNQQ",
-  "active" : true
-}, {
-  "id" : "21159667-c6b7-4fa4-8114-573e949c5526",
-  "localDateTime" : "21/05/2024 10:31:29",
-  "model" : "dsfs",
-  "modelBy" : "sd",
-  "price" : "fds",
-  "ram" : "fsd",
-  "cup" : "fds",
+  "id" : "bb282014-8aff-414d-afa6-1b40e73f6bde",
+  "localDateTime" : "21/05/2024 19:51:39",
+  "model" : "asus zenbook",
+  "modelBy" : "asus",
+  "price" : "200",
+  "ram" : "12",
+  "cup" : "512",
   "count" : "2",
-  "fileId" : "AgACAgIAAxkBAAIIMWZMMbrZUDfyKvIh7CmuxxPpCjaFAAIi2TEbQgRgSs9yZ_a9bYI4AQADAgADeAADNQQ",
-  "active" : true
-}, {
-  "id" : "a5e72f1c-aa38-400e-9b1b-36632d6ea3ea",
-  "localDateTime" : "21/05/2024 10:33:46",
-  "model" : "sdsd",
-  "modelBy" : "dss",
-  "price" : "2",
-  "ram" : "sds",
-  "cup" : "ds",
-  "count" : "2",
-  "fileId" : "AgACAgIAAxkBAAIIYGZMMkc9EuO2C74cfqXg_GKa2EIrAAL41zEbk_tgSt14oJa-stPEAQADAgADeQADNQQ",
+  "fileId" : "AgACAgIAAxkBAAIIhWZMtQWCmOtMpRwKyQrTUTwatS0zAAKQ2jEbk_toSh_bzFa5Po7wAQADAgADeAADNQQ",
   "active" : true
 } ]

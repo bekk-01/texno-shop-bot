@@ -166,6 +166,10 @@ public class CommandHandler extends MyBot {
                 || text.equalsIgnoreCase("excel"))){
             downloading.handleExelFile(chatId);
         }
+        if((user.getUserState() == UserState.SHOPPING || user.getUserState() == UserState.SELL )&& (Objects.equals(text,"Word")
+                || text.equalsIgnoreCase("word"))){
+            downloading.handleWordFile(chatId);
+        }
         if(user.getUserState()==UserState.SELL && Objects.equals(text, "Computer")){
             createProduct.createComputer(callbackQuery);
         }

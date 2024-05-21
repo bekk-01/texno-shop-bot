@@ -5,6 +5,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.example.bot.MyBot;
 import org.example.model.Phone;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -19,7 +22,7 @@ import java.util.List;
 public class Downloading extends MyBot {
     public String generateExelFile() {
         List<Phone> phones = phoneService.getAll();
-        String fileName = "src/main/resources/phone.xlsx";
+        String fileName = "src/main/resources/send/phone.xlsx";
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Phone");
             Row headerRow = sheet.createRow(0);
@@ -60,7 +63,59 @@ public class Downloading extends MyBot {
     public void handleExelFile(Long chatId) {
         String fileName = generateExelFile();
         sendExelFile(chatId, fileName);
-        SendMessage sendMessage = new SendMessage(chatId.toString(), "Send document");
+        SendMessage sendMessage = new SendMessage(chatId.toString(), "Send successfully");
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String generatePhoneWordFile() {
+        List<Phone> phones = phoneService.getAll();
+        String fileName = "src/main/resources/send/phone.docx";
+        try (XWPFDocument document = new XWPFDocument()) {
+            for (Phone phone : phones) {
+                XWPFParagraph paragraph = document.createParagraph();
+                XWPFRun run = paragraph.createRun();
+                run.setText("Model: " + phone.getModel());
+                run.addBreak();
+                run.setText("ModelBy: " + phone.getModelBy());
+                run.addBreak();
+                run.setText("Battery: " + phone.getBattery());
+                run.addBreak();
+                run.setText("Count: " + phone.getCount());
+                run.addBreak();
+                run.setText("Price: " + phone.getPrice());
+                run.addBreak();
+                run.setText("DisplayHrz: " + phone.getDisplayHrz());
+                run.addBreak();
+                run.addBreak();
+                try (FileOutputStream out = new FileOutputStream(fileName)) {
+                    document.write(out);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileName;
+    }
+    private void sendWordFile(Long chatId, String filePath) {
+        SendDocument sendDocument = new SendDocument();
+        sendDocument.setChatId(chatId.toString());
+        sendDocument.setDocument(new InputFile(new java.io.File(filePath)));
+
+        try {
+            execute(sendDocument);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleWordFile(Long chatId) {
+        String filePath = generatePhoneWordFile();
+        sendWordFile(chatId, filePath);
+        SendMessage sendMessage = new SendMessage(chatId.toString(), "Send successfully");
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
