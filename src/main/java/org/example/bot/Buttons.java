@@ -77,8 +77,8 @@ public class Buttons extends MyBot{
         button.setCallbackData("Buckets");
         row.add(button);
 
-        button = new InlineKeyboardButton("\uD83D\uDCC3History");
-        button.setCallbackData("History");
+        button = new InlineKeyboardButton("\uD83D\uDDC2Download");
+        button.setCallbackData("Download");
         row.add(button);
 
         rows.add(row);
@@ -88,9 +88,18 @@ public class Buttons extends MyBot{
     public InlineKeyboardMarkup bucketsAdd(){
         List<List<InlineKeyboardButton>> rows = new ArrayList<>();
         List<InlineKeyboardButton> row = new ArrayList<>();
-        InlineKeyboardButton button = new InlineKeyboardButton("Create Buckets");
-        button.setCallbackData("Create Buckets");
+        InlineKeyboardButton button = new InlineKeyboardButton(" - ");
+        button.setCallbackData("-");
         row.add(button);
+
+        button = new InlineKeyboardButton("0");
+        button.setCallbackData("0");
+        row.add(button);
+
+        button = new InlineKeyboardButton("+");
+        button.setCallbackData("+");
+        row.add(button);
+
         rows.add(row);
 
 
@@ -112,9 +121,35 @@ public class Buttons extends MyBot{
         button.setCallbackData("Tv");
         row.add(button);
 
+        button = new InlineKeyboardButton("\uD83D\uDDC2Download");
+        button.setCallbackData("Download");
+        row.add(button);
+
         rows.add(row);
 
         return new InlineKeyboardMarkup(rows);
 
+    }
+    public InlineKeyboardMarkup downloadButton(){
+        List<List<InlineKeyboardButton>> rows = new ArrayList<>();
+        List<InlineKeyboardButton> row = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton("Excel");
+        button.setCallbackData("Excel");
+        row.add(button);
+
+        button = new InlineKeyboardButton("Pdf");
+        button.setCallbackData("Pdf");
+        row.add(button);
+
+        button = new InlineKeyboardButton("Word");
+        button.setCallbackData("Word");
+        row.add(button);
+
+        button = new InlineKeyboardButton("Email");
+        button.setCallbackData("Email");
+        row.add(button);
+
+        rows.add(row);
+        return new InlineKeyboardMarkup(rows);
     }
 }

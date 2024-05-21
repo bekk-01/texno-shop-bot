@@ -1,11 +1,12 @@
 package org.example.enumerators;
 
-public enum ComputerState {
+public enum ProductState {
     MODEL,
     MODEL_BY,
     PRICE,
     RAM,
     CUP,
-    COUNT;
+    COUNT,
+    FINISH;
 
 }

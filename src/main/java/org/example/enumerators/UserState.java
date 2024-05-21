@@ -7,5 +7,8 @@ public enum UserState {
     MAIN_MENU,
     SELL,
     SHOPPING,
-    SELL_COMPUTER;
+    SELL_COMPUTER,
+    SELL_PHONE,
+    SELL_TV,
+    SEARCHING;
 }

@@ -27,4 +27,5 @@ public abstract class BaseService<T extends BaseModel,R extends BaseRepository<T
     public void writeFile(ArrayList<T> data){
         repository.writeFile(data);
     }
+
 }
